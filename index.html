@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conspirative — Teorías y Noticias Alternativas</title>
+<meta name="description" content="Las últimas noticias sobre conspiraciones, teorías alternativas, fenómenos inexplicados, gobiernos en la sombra y ufología. Fuentes verificadas en español e inglés.">
+<meta property="og:title" content="Conspirative — Teorías y Noticias Alternativas">
+<meta property="og:description" content="Noticias en tiempo real sobre conspiraciones, deep state, ufología y teorías alternativas desde fuentes RSS y APIs públicas.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yowahesp.github.io/Conspirative/">
+<meta property="og:image" content="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=1200&h=630&fit=crop">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ff5e57">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Share+Tech+Mono:wght@400&family=Oswald:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* ============================================================
+   VARIABLES
+   ============================================================ */
+:root {
+  --bg:       #090c10;
+  --surface:  #111620;
+  --card:     #141b24;
+  --card-hover: #1a2230;
+  --accent:   #e84545;
+  --accent2:  #ff7043;
+  --blue:     #3b82f6;
+  --text:     #e8edf5;
+  --muted:    #7a8898;
+  --border:   rgba(232, 69, 69, 0.22);
+  --border-blue: rgba(59, 130, 246, 0.28);
+  --radius:   7px;
+  --ease:     cubic-bezier(.4,0,.2,1);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Share Tech Mono', monospace;
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(232,69,69,.07) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e84545' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 0 0 80px;
+}
+
+/* ============================================================
+   SKIP LINK
+   ============================================================ */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 12px;
+  background: var(--accent);
+  color: #000;
+  padding: 8px 16px;
+  font-size: .82rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+  z-index: 9999;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: top .2s;
+}
+.skip-link:focus { top: 0; }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.site-header {
+  position: relative;
+  padding: 36px 20px 28px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(232,69,69,.06) 0%, transparent 100%);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+/* scanline overlay */
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent 0px, transparent 3px,
+    rgba(232,69,69,.015) 3px, rgba(232,69,69,.015) 4px
+  );
+  pointer-events: none;
+}
+
+.header-eyebrow {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: 4px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  opacity: .8;
+}
+
+.site-header h1 {
+  font-family: 'Special Elite', cursive;
+  font-size: clamp(2rem, 6vw, 3.6rem);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.site-header h1 .eye-icon {
+  color: var(--accent);
+  margin-right: 10px;
+  filter: drop-shadow(0 0 8px rgba(232,69,69,.6));
+}
+
+.site-header h1 .accent-word { color: var(--accent); }
+
+.tagline {
+  color: var(--muted);
+  font-size: .82rem;
+  letter-spacing: 1px;
+  max-width: 560px;
+  margin: 0 auto 6px;
+}
+
+.source-note {
+  color: var(--muted);
+  font-size: .68rem;
+  opacity: .65;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   TICKER BANNER
+   ============================================================ */
+.ticker-wrap {
+  background: var(--accent);
+  border-top: 2px solid rgba(0,0,0,.25);
+  border-bottom: 2px solid rgba(0,0,0,.25);
+  padding: 9px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 28px;
+}
+
+.ticker-inner {
+  display: inline-block;
+  font-family: 'Special Elite', cursive;
+  font-size: .95rem;
+  letter-spacing: 3px;
+  color: #000;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ticker-inner {
+    animation: ticker 40s linear infinite;
+  }
+  @keyframes ticker {
+    from { transform: translateX(100vw); }
+    to   { transform: translateX(-100%); }
+  }
+}
+
+/* ============================================================
+   TOOLBAR
+   ============================================================ */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 1440px;
+  margin: 0 auto 16px;
+  padding: 0 16px;
+  flex-wrap: wrap;
+}
+
+/* Search */
+.search-wrap {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+.search-wrap i {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: .8rem;
+  pointer-events: none;
+}
+#search-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .82rem;
+  padding: 10px 12px 10px 36px;
+  outline: none;
+  transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+#search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(232,69,69,.1);
+}
+#search-input::placeholder { color: var(--muted); }
+
+/* Lang pills */
+.lang-pills {
+  display: flex;
+  gap: 3px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 3px;
+  flex-shrink: 0;
+}
+.lang-pill {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-family: 'Oswald', sans-serif;
+  font-size: .78rem;
+  font-weight: 400;
+  padding: 6px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background .15s var(--ease), color .15s var(--ease);
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.lang-pill:hover { color: var(--text); }
+.lang-pill.active {
+  background: var(--accent);
+  color: #000;
+  font-weight: 600;
+}
+
+/* Refresh btn */
+.refresh-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: var(--radius);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: .85rem;
+  transition: color .15s, border-color .15s, transform .3s var(--ease);
+  flex-shrink: 0;
+}
+.refresh-btn:hover { color: var(--accent); border-color: var(--accent); }
+.refresh-btn.spinning i { animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   SOURCE FILTER CHIPS
+   ============================================================ */
+.chips-bar {
+  max-width: 1440px;
+  margin: 0 auto 20px;
+  padding: 0 16px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: 28px;
+}
+.chips-label {
+  font-size: .65rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+.chip {
+  background: transparent;
+  border: 1px solid rgba(232,69,69,.25);
+  border-radius: 99px;
+  color: var(--muted);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .67rem;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: all .15s var(--ease);
+  letter-spacing: .5px;
+  line-height: 1.4;
+}
+.chip:hover { border-color: var(--accent); color: var(--text); }
+.chip.active {
+  background: rgba(232,69,69,.12);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ============================================================
+   COLUMNS LAYOUT
+   ============================================================ */
+.columns-wrap {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 860px) {
+  .columns-wrap { flex-direction: row; align-items: flex-start; }
+  .column { flex: 1; min-width: 0; }
+}
+
+/* ============================================================
+   COLUMN
+   ============================================================ */
+.column {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.column::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(232,69,69,.5);
+}
+
+.col-es {
+  border: 1px solid var(--border-blue);
+  background: linear-gradient(180deg, rgba(59,130,246,.04) 0%, var(--surface) 60%);
+}
+.col-es::before { background: var(--blue); box-shadow: 0 0 12px rgba(59,130,246,.4); }
+
+.col-en {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(232,69,69,.04) 0%, var(--surface) 60%);
+}
+
+.col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.col-header-left {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.col-header h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text);
+}
+
+.col-es .col-header h2 { color: #60a5fa; }
+.col-en .col-header h2 { color: var(--accent); }
+
+.col-icon {
+  font-size: .95rem;
+  opacity: .7;
+}
+.col-es .col-icon { color: #60a5fa; }
+.col-en .col-icon { color: var(--accent); }
+
+.count-badge {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 99px;
+  font-size: .65rem;
+  color: var(--muted);
+  padding: 2px 9px;
+  font-family: 'Share Tech Mono', monospace;
+  letter-spacing: .5px;
+  transition: color .3s;
+}
+
+/* ============================================================
+   NEWS GRID
+   ============================================================ */
+.news-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 500px) and (max-width: 859px) {
+  .news-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1200px) {
+  .news-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ============================================================
+   CARD
+   ============================================================ */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  flex-direction: column;
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.5);
+  border-color: rgba(232,69,69,.35);
+  background: var(--card-hover);
+}
+
+.card-img {
+  width: 100%;
+  height: 148px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  filter: grayscale(.25) brightness(.88);
+  transition: filter .25s var(--ease);
+  display: block;
+}
+.card:hover .card-img { filter: grayscale(0) brightness(1); }
+
+.card-body {
+  padding: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.card-date {
+  font-size: .65rem;
+  color: var(--accent);
+  letter-spacing: .5px;
+}
+
+.card-source {
+  font-size: .62rem;
+  color: var(--muted);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 3px;
+  padding: 1px 6px;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-title {
+  font-family: 'Special Elite', cursive;
+  font-size: .9rem;
+  line-height: 1.38;
+  color: var(--text);
+}
+
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--accent);
+  color: #000;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .5rem;
+  padding: 1px 4px;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-left: 5px;
+  letter-spacing: .5px;
+  line-height: 1.6;
+}
+
+.card-desc {
+  font-size: .76rem;
+  color: var(--muted);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 3px;
+  flex-wrap: wrap;
+}
+
+.read-more {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: .72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: text-shadow .15s;
+  white-space: nowrap;
+}
+.read-more:hover {
+  text-shadow: 0 0 8px rgba(232,69,69,.6);
+  text-decoration: underline;
+}
+.read-more:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.translate-btn {
+  background: transparent;
+  border: 1px solid rgba(232,69,69,.3);
+  color: var(--muted);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .65rem;
+  padding: 3px 9px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all .15s var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  letter-spacing: .5px;
+}
+.translate-btn:hover:not(:disabled) {
+  background: rgba(232,69,69,.1);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.translate-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* ============================================================
+   STATES: LOADING / ERROR / EMPTY
+   ============================================================ */
+.state-msg {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 44px 16px;
+  text-align: center;
+  color: var(--muted);
+  font-size: .82rem;
+}
+.state-msg i { font-size: 1.6rem; opacity: .5; }
+.state-msg.error { color: #ff6b6b; }
+
+/* ============================================================
+   LOAD MORE
+   ============================================================ */
+.load-more-wrap {
+  max-width: 1440px;
+  margin: 26px auto 0;
+  padding: 0 16px;
+  text-align: center;
+}
+
+#load-more-btn {
+  background: var(--accent);
+  color: #000;
+  border: 1px solid rgba(0,0,0,.25);
+  border-radius: var(--radius);
+  font-family: 'Oswald', sans-serif;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 12px 36px;
+  cursor: pointer;
+  transition: background .2s, box-shadow .2s, transform .15s var(--ease);
+}
+#load-more-btn:hover:not(:disabled) {
+  background: #ff3030;
+  box-shadow: 0 0 24px rgba(232,69,69,.45);
+  transform: translateY(-2px);
+}
+#load-more-btn:disabled {
+  background: var(--muted);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+  max-width: 1440px;
+  margin: 50px auto 0;
+  padding: 20px 16px;
+  text-align: center;
+  color: var(--muted);
+  font-size: .68rem;
+  border-top: 1px solid rgba(232,69,69,.1);
+  opacity: .65;
+  letter-spacing: .5px;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(232,69,69,.35); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Saltar al contenido</a>
+
+<!-- ======================== HEADER ======================== -->
+<header class="site-header">
+  <p class="header-eyebrow">// transmisión segura establecida //</p>
+  <h1>
+    <i class="fas fa-eye eye-icon" aria-hidden="true"></i><span class="accent-word">CONSPIRA</span>TIVE
+  </h1>
+  <p class="tagline">Noticias en tiempo real sobre conspiraciones, ufología y teorías alternativas</p>
+  <p class="source-note"><i class="fas fa-satellite-dish" aria-hidden="true"></i> Recopilación automática desde APIs y fuentes RSS públicas</p>
+</header>
+
+<!-- ======================== TICKER ======================== -->
+<div class="ticker-wrap" aria-label="Temas destacados" role="marquee">
+  <span class="ticker-inner" aria-hidden="true">
+    ÁREA&nbsp;51&nbsp;•&nbsp;ILLUMINATI&nbsp;•&nbsp;CONTROL&nbsp;MENTAL&nbsp;•&nbsp;DEEP&nbsp;STATE&nbsp;•&nbsp;NUEVO&nbsp;ORDEN&nbsp;MUNDIAL&nbsp;•&nbsp;UFOS&nbsp;•&nbsp;QANON&nbsp;•&nbsp;MASONERÍA&nbsp;•&nbsp;5G&nbsp;•&nbsp;REPTILIANOS&nbsp;•&nbsp;MK-ULTRA&nbsp;•&nbsp;CHEMTRAILS&nbsp;•&nbsp;AGENDA&nbsp;2030&nbsp;•&nbsp;OPERACIÓN&nbsp;FALSA&nbsp;BANDERA&nbsp;•&nbsp;PROYECTO&nbsp;MONTAUK&nbsp;•&nbsp;HAARP&nbsp;•&nbsp;PROYECTO&nbsp;BLUEBEAM&nbsp;•&nbsp;GOBIERNO&nbsp;EN&nbsp;LA&nbsp;SOMBRA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span>
+</div>
+
+<!-- ======================== TOOLBAR ======================== -->
+<div class="toolbar">
+  <div class="search-wrap">
+    <i class="fas fa-search" aria-hidden="true"></i>
+    <input
+      type="search"
+      id="search-input"
+      placeholder="Buscar en las noticias…"
+      aria-label="Buscar noticias"
+      autocomplete="off"
+    >
+  </div>
+
+  <div class="lang-pills" role="group" aria-label="Seleccionar idioma">
+    <button class="lang-pill active" data-mode="es" aria-pressed="true">🇪🇸 Español</button>
+    <button class="lang-pill"        data-mode="en" aria-pressed="false">🇬🇧 English</button>
+    <button class="lang-pill"        data-mode="both" aria-pressed="false">Ambos</button>
+  </div>
+
+  <button class="refresh-btn" id="refresh-btn" title="Actualizar noticias" aria-label="Actualizar noticias">
+    <i class="fas fa-sync-alt"></i>
+  </button>
+</div>
+
+<!-- ======================== FILTER CHIPS ======================== -->
+<div class="chips-bar" id="chips-bar" aria-label="Filtrar por fuente">
+  <span class="chips-label">Fuente:</span>
+  <!-- chips injected by JS -->
+</div>
+
+<!-- ======================== MAIN ======================== -->
+<main id="main">
+
+  <div class="columns-wrap" id="columns-wrap">
+
+    <!-- COLUMN ES -->
+    <section class="column col-es" id="col-es" aria-label="Noticias en español">
+      <div class="col-header">
+        <div class="col-header-left">
+          <i class="fas fa-flag col-icon" aria-hidden="true"></i>
+          <h2>Noticias en Español</h2>
+        </div>
+        <span class="count-badge" id="count-es" aria-live="polite"></span>
+      </div>
+      <div class="news-grid" id="news-es">
+        <div class="state-msg">
+          <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+          <span>Cargando noticias…</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLUMN EN -->
+    <section class="column col-en" id="col-en" style="display:none" aria-label="News in English">
+      <div class="col-header">
+        <div class="col-header-left">
+          <i class="fas fa-globe col-icon" aria-hidden="true"></i>
+          <h2>News in English</h2>
+        </div>
+        <span class="count-badge" id="count-en" aria-live="polite"></span>
+      </div>
+      <div class="news-grid" id="news-en">
+        <div class="state-msg">
+          <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+          <span>Loading news…</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="load-more-wrap">
+    <button id="load-more-btn" style="display:none">Cargar más noticias</button>
+  </div>
+
+</main>
+
+<!-- ======================== FOOTER ======================== -->
+<footer class="site-footer">
+  <p>
+    Conspirative &copy; <span id="yr"></span> —
+    Contenido recopilado automáticamente desde APIs y fuentes RSS públicas.
+    Solo con fines informativos. Las teorías expresadas no representan la opinión del sitio.
+  </p>
+</footer>
+
+<!-- ======================== SCRIPT ======================== -->
+<script>
+'use strict';
+
+/* ── API KEYS ─────────────────────────────────────────── */
+const API = {
+  NEWSDATA:   'pub_6b66eb748f3b402fb0444a5a1e7f342a',
+  THENEWS:    'WoleUZzFljC8VUfbMieN3CckhyVQkjq5pUmjPvkm',
+  CURRENTS:   'u_sEzOt9_SvMBgHcpGQMxTtWiUOk6em5XwBJ0Y0s_FiJOiuD',
+  MEDIASTACK: 'f8937b79760dc862781b4969cdff9d06'
+};
+
+/* ── CONSTANTS ────────────────────────────────────────── */
+const PROXY         = 'https://corsproxy.io/?url=';
+const FALLBACK_IMG  = 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=400&h=250&fit=crop&auto=format&q=80';
+const CACHE_TTL     = 30 * 60 * 1000;   // 30 min
+const PER_PAGE      = 12;
+
+/* ── RSS SOURCES ──────────────────────────────────────── */
+const RSS_ES = [
+  { url: 'https://codigooculto.com/feed/',          name: 'Código Oculto'      },
+  { url: 'https://www.mundodesconocido.es/feed',    name: 'Mundo Desconocido'  },
+  { url: 'https://veritasboss.com/feed/',           name: 'Veritas Boss'       },
+  { url: 'https://es.theepochtimes.com/rss.xml',   name: 'La Gran Época'      },
+];
+
+const RSS_EN = [
+  { url: 'https://vigilantcitizen.com/feed/',                         name: 'Vigilant Citizen'      },
+  { url: 'https://www.corbettreport.com/feed/',                       name: 'The Corbett Report'    },
+  { url: 'https://www.reddit.com/r/conspiracy/.rss',                  name: 'r/conspiracy'          },
+  { url: 'https://www.reddit.com/r/UFOs/.rss',                        name: 'r/UFOs'                },
+  { url: 'https://www.reddit.com/r/UAP/.rss',                         name: 'r/UAP'                 },
+  { url: 'https://www.reddit.com/r/AlternativeHistory/.rss',          name: 'r/AlternativeHistory'  },
+];
+
+/* ── STATE ────────────────────────────────────────────── */
+let allEs = [], allEn = [];
+let filteredEs = [], filteredEn = [];
+let page = 1;
+let isLoading = false;
+let mode = localStorage.getItem('conspirative_mode') || 'es';
+let searchQuery = '';
+let activeFilters = new Set();
+
+/* ── DOM REFS ─────────────────────────────────────────── */
+const gridEs      = document.getElementById('news-es');
+const gridEn      = document.getElementById('news-en');
+const colEs       = document.getElementById('col-es');
+const colEn       = document.getElementById('col-en');
+const loadMoreBtn = document.getElementById('load-more-btn');
+const searchInput = document.getElementById('search-input');
+const countEs     = document.getElementById('count-es');
+const countEn     = document.getElementById('count-en');
+const chipsBar    = document.getElementById('chips-bar');
+const refreshBtn  = document.getElementById('refresh-btn');
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ── ESCAPE HELPERS (XSS prevention) ─────────────────── */
+const E = {
+  html(s) {
+    return String(s ?? '')
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  },
+  attr(s) {
+    return String(s ?? '').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+};
+
+/* ── CACHE ────────────────────────────────────────────── */
+const cache = {
+  set(key, data) {
+    try { localStorage.setItem(key, JSON.stringify({ ts: Date.now(), data })); } catch (_) {}
+  },
+  get(key) {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) return null;
+      const obj = JSON.parse(raw);
+      if (Date.now() - obj.ts > CACHE_TTL) { localStorage.removeItem(key); return null; }
+      return obj.data;
+    } catch (_) { return null; }
+  },
+  clear(key) {
+    try { localStorage.removeItem(key); } catch (_) {}
+  }
+};
+
+/* ── ARTICLE NORMALIZER ───────────────────────────────── */
+function norm(raw) {
+  return {
+    title:       (raw.title       || '').trim() || 'Sin título',
+    url:         (raw.url         || raw.link  || '').trim(),
+    publishedAt: raw.publishedAt  || raw.published_at || raw.published || new Date().toISOString(),
+    description: (raw.description || raw.content || '').trim(),
+    urlToImage:  raw.urlToImage   || raw.image  || raw.image_url || '',
+    source:      { name: (raw.source?.name || raw.source || raw.source_id || 'Desconocido').trim() }
+  };
+}
+
+/* ── RSS HELPERS ──────────────────────────────────────── */
+function rssImage(item) {
+  const mc = item.querySelector('media\\:content, content');
+  if (mc) { const u = mc.getAttribute('url'); if (u) return u; }
+  const enc = item.querySelector('enclosure[type^="image"]');
+  if (enc) { const u = enc.getAttribute('url'); if (u) return u; }
+  const desc = item.querySelector('description, summary')?.textContent || '';
+  const m = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
+  return m ? m[1] : '';
+}
+
+function rssText(item) {
+  const raw = item.querySelector('description, summary, content')?.textContent || '';
+  const div = document.createElement('div');
+  div.innerHTML = raw;
+  const t = div.textContent.trim();
+  return t.length > 240 ? t.slice(0, 240) + '…' : t;
+}
+
+/* ── FETCHERS ─────────────────────────────────────────── */
+
+async function fetchNewsdata(lang) {
+  const q = lang === 'es'
+    ? 'conspiración OR illuminati OR "nuevo orden mundial" OR ovni OR "deep state"'
+    : 'conspiracy OR illuminati OR "new world order" OR ufo OR "deep state" OR "false flag"';
+  const url = `https://newsdata.io/api/1/news?apikey=${API.NEWSDATA}&q=${encodeURIComponent(q)}&language=${lang}&image=1`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Newsdata ${res.status}`);
+  const data = await res.json();
+  return (data.results || []).map(a => norm({
+    title: a.title, url: a.link, publishedAt: a.pubDate,
+    description: a.description, urlToImage: a.image_url,
+    source: { name: a.source_name || a.source_id || 'Newsdata' }
+  }));
+}
+
+async function fetchTheNews(lang) {
+  const q = lang === 'es' ? 'conspiración teoría alternativa' : 'conspiracy theory alternative';
+  const locale = lang === 'es' ? 'es,mx,ar' : 'us,gb,au,ca';
+  const url = `https://api.thenewsapi.com/v1/news/all?api_token=${API.THENEWS}&search=${encodeURIComponent(q)}&locale=${locale}&limit=3&language=${lang}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`TheNewsAPI ${res.status}`);
+  const data = await res.json();
+  return (data.data || []).map(a => norm({
+    title: a.title, url: a.url, publishedAt: a.published_at,
+    description: a.description, urlToImage: a.image_url,
+    source: { name: typeof a.source === 'string' ? a.source : (a.source?.name || 'TheNewsAPI') }
+  }));
+}
+
+async function fetchCurrents(lang) {
+  const q = lang === 'es' ? 'conspiración illuminati ovni' : 'conspiracy illuminati ufo';
+  const target = `https://api.currentsapi.services/v1/search?apiKey=${API.CURRENTS}&keywords=${encodeURIComponent(q)}&language=${lang}`;
+  const res = await fetch(PROXY + encodeURIComponent(target));
+  if (!res.ok) throw new Error(`Currents ${res.status}`);
+  const data = await res.json();
+  return (data.news || []).map(a => norm({
+    title: a.title, url: a.url, publishedAt: a.published,
+    description: a.description,
+    urlToImage: (!a.image || a.image === 'None') ? '' : a.image,
+    source: { name: a.author || 'Currents API' }
+  }));
+}
+
+async function fetchMediastack(lang) {
+  const kw = lang === 'es' ? 'conspiración,illuminati,ovni,deep+state' : 'conspiracy,illuminati,ufo,deep+state';
+  const target = `http://api.mediastack.com/v1/news?access_key=${API.MEDIASTACK}&keywords=${kw}&languages=${lang}&limit=25&sort=published_desc`;
+  const res = await fetch(PROXY + encodeURIComponent(target));
+  if (!res.ok) throw new Error(`Mediastack ${res.status}`);
+  const data = await res.json();
+  return (data.data || []).map(a => norm({
+    title: a.title, url: a.url, publishedAt: a.published_at,
+    description: a.description, urlToImage: a.image,
+    source: { name: a.source || 'Mediastack' }
+  }));
+}
+
+async function fetchRSS(feed) {
+  const res = await fetch(PROXY + encodeURIComponent(feed.url));
+  if (!res.ok) throw new Error(`RSS ${feed.name} ${res.status}`);
+  const xml = await res.text();
+  const doc = new DOMParser().parseFromString(xml, 'application/xml');
+  if (doc.querySelector('parsererror')) throw new Error(`RSS parse error: ${feed.name}`);
+  return Array.from(doc.querySelectorAll('item, entry')).map(item => {
+    const link = (
+      item.querySelector('link')?.getAttribute('href') ||
+      item.querySelector('link')?.textContent || ''
+    ).trim();
+    const pubDate =
+      item.querySelector('pubDate')?.textContent ||
+      item.querySelector('published')?.textContent ||
+      item.querySelector('updated')?.textContent || '';
+    return norm({
+      title: item.querySelector('title')?.textContent || '',
+      url: link, publishedAt: pubDate,
+      description: rssText(item),
+      urlToImage: rssImage(item),
+      source: { name: feed.name }
+    });
+  });
+}
+
+/* ── AGGREGATE ────────────────────────────────────────── */
+async function fetchAll(lang, forceRefresh = false) {
+  const key = `conspirative_v2_${lang}`;
+  if (!forceRefresh) {
+    const hit = cache.get(key);
+    if (hit) { console.info(`[Cache] ${lang} (${hit.length})`); return hit; }
+  } else {
+    cache.clear(key);
+  }
+
+  const rss = lang === 'es' ? RSS_ES : RSS_EN;
+  const tasks = [
+    fetchNewsdata(lang),
+    fetchTheNews(lang),
+    fetchCurrents(lang),
+    fetchMediastack(lang),
+    ...rss.map(fetchRSS)
+  ];
+
+  const settled = await Promise.allSettled(tasks);
+  settled.forEach((r, i) => {
+    if (r.status === 'rejected') console.warn(`Source ${i} failed:`, r.reason?.message);
+  });
+
+  const all = settled.filter(r => r.status === 'fulfilled').flatMap(r => r.value);
+
+  /* deduplicate by normalised title prefix */
+  const seen = new Set();
+  const unique = all.filter(a => {
+    if (!a.url || a.url === '#' || !a.title) return false;
+    const key2 = a.title.toLowerCase().replace(/\W+/g, '').slice(0, 42);
+    if (!key2 || seen.has(key2)) return false;
+    seen.add(key2);
+    return true;
+  });
+
+  unique.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+  cache.set(key, unique);
+  console.info(`[Fetch] ${lang}: ${unique.length} articles`);
+  return unique;
+}
+
+/* ── FILTER / SEARCH ──────────────────────────────────── */
+function applyFilters(articles) {
+  let result = articles;
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    result = result.filter(a =>
+      a.title.toLowerCase().includes(q) ||
+      a.description.toLowerCase().includes(q) ||
+      a.source.name.toLowerCase().includes(q)
+    );
+  }
+  if (activeFilters.size > 0) {
+    result = result.filter(a => activeFilters.has(a.source.name));
+  }
+  return result;
+}
+
+/* ── RENDER ───────────────────────────────────────────── */
+function fmtDate(iso, lang) {
+  try {
+    return new Date(iso).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
+      year: 'numeric', month: 'short', day: 'numeric'
+    });
+  } catch (_) { return ''; }
+}
+
+function makeCard(art, lang) {
+  const isEn = lang === 'en';
+  const img  = art.urlToImage || FALLBACK_IMG;
+  const date = fmtDate(art.publishedAt, lang);
+  const src  = art.source.name || (isEn ? 'Unknown' : 'Desconocido');
+
+  const el = document.createElement('article');
+  el.className = 'card';
+  el.innerHTML = `
+    <img class="card-img" src="${E.attr(img)}" alt="" loading="lazy"
+         onerror="this.src='${FALLBACK_IMG}'">
+    <div class="card-body">
+      <div class="card-meta">
+        <time class="card-date" datetime="${E.attr(art.publishedAt)}">${date}</time>
+        <span class="card-source" title="${E.attr(src)}">${E.html(src)}</span>
+      </div>
+      <h3 class="card-title">
+        ${E.html(art.title)}
+        <span class="verified-badge" aria-label="Fuente verificada">✓ SRC</span>
+      </h3>
+      ${art.description
+        ? `<p class="card-desc">${E.html(art.description)}</p>`
+        : ''}
+      <div class="card-actions">
+        <a class="read-more"
+           href="${E.attr(art.url)}"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="${isEn ? 'Read more' : 'Leer más'}: ${E.attr(art.title)}">
+          ${isEn ? 'Read more →' : 'Leer más →'}
+        </a>
+        ${isEn ? `<button class="translate-btn"
+            data-title="${E.attr(art.title)}"
+            data-desc="${E.attr(art.description)}"
+            aria-label="Traducir al español">
+            <i class="fas fa-language" aria-hidden="true"></i> ES
+          </button>` : ''}
+      </div>
+    </div>`;
+  return el;
+}
+
+function renderPage(grid, articles, lang, p) {
+  if (p === 1) grid.innerHTML = '';
+  const slice = articles.slice((p - 1) * PER_PAGE, p * PER_PAGE);
+  if (slice.length === 0 && p === 1) {
+    grid.innerHTML = `<div class="state-msg">
+      <i class="fas fa-ghost" aria-hidden="true"></i>
+      <span>${lang === 'es' ? 'No se encontraron noticias.' : 'No news found.'}</span>
+    </div>`;
+    return;
+  }
+  const frag = document.createDocumentFragment();
+  slice.forEach(a => frag.appendChild(makeCard(a, lang)));
+  grid.appendChild(frag);
+}
+
+/* ── CHIPS ────────────────────────────────────────────── */
+function buildChips() {
+  const sources = [...new Set([
+    ...allEs.map(a => a.source.name),
+    ...allEn.map(a => a.source.name)
+  ])].filter(Boolean).sort((a, b) => a.localeCompare(b));
+
+  /* clear existing chips, keep label */
+  [...chipsBar.querySelectorAll('.chip')].forEach(c => c.remove());
+
+  sources.forEach(src => {
+    const btn = document.createElement('button');
+    btn.className = 'chip';
+    btn.textContent = src;
+    btn.setAttribute('aria-pressed', 'false');
+    btn.addEventListener('click', () => {
+      if (activeFilters.has(src)) {
+        activeFilters.delete(src);
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      } else {
+        activeFilters.add(src);
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+      }
+      applyAndRender();
+    });
+    chipsBar.appendChild(btn);
+  });
+}
+
+/* ── APPLY + RENDER (full refresh of visible grids) ───── */
+function applyAndRender() {
+  page = 1;
+  filteredEs = applyFilters(allEs);
+  filteredEn = applyFilters(allEn);
+  countEs.textContent = filteredEs.length ? String(filteredEs.length) : '';
+  countEn.textContent = filteredEn.length ? String(filteredEn.length) : '';
+
+  if (mode !== 'en') renderPage(gridEs, filteredEs, 'es', 1);
+  if (mode !== 'es') renderPage(gridEn, filteredEn, 'en', 1);
+
+  refreshLoadMore();
+}
+
+function refreshLoadMore() {
+  const moreEs = mode !== 'en' && filteredEs.length > page * PER_PAGE;
+  const moreEn = mode !== 'es' && filteredEn.length > page * PER_PAGE;
+  loadMoreBtn.style.display = (moreEs || moreEn) ? 'inline-block' : 'none';
+}
+
+/* ── LANGUAGE MODE ────────────────────────────────────── */
+function setMode(m) {
+  mode = m;
+  localStorage.setItem('conspirative_mode', m);
+
+  colEs.style.display = m === 'en'   ? 'none'  : 'block';
+  colEn.style.display = m === 'es'   ? 'none'  : 'block';
+
+  document.querySelectorAll('.lang-pill').forEach(btn => {
+    const active = btn.dataset.mode === m;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', String(active));
+  });
+
+  loadMoreBtn.textContent = m === 'en' ? 'Load more news' : 'Cargar más noticias';
+  applyAndRender();
+}
+
+/* ── TRANSLATE ────────────────────────────────────────── */
+async function doTranslate(btn) {
+  if (btn.disabled) return;
+  const card     = btn.closest('.card');
+  const titleEl  = card.querySelector('.card-title');
+  const descEl   = card.querySelector('.card-desc');
+  const origTitle = btn.dataset.title;
+  const origDesc  = btn.dataset.desc;
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i>';
+
+  try {
+    const combined = `${origTitle} ||| ${origDesc}`;
+    const res = await fetch(
+      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(combined)}&langpair=en|es`
+    );
+    if (!res.ok) throw new Error('Translation API error');
+    const data = await res.json();
+    const [tTitle, tDesc] = (data.responseData?.translatedText || '').split(' ||| ');
+
+    if (tTitle?.trim() && titleEl) {
+      titleEl.innerHTML = `${E.html(tTitle.trim())} <span class="verified-badge" aria-label="Fuente verificada">✓ SRC</span>`;
+    }
+    if (tDesc?.trim() && descEl) descEl.textContent = tDesc.trim();
+
+    btn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> Traducido';
+    btn.setAttribute('aria-label', 'Traducción completada');
+  } catch {
+    btn.innerHTML = '<i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Error';
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-language" aria-hidden="true"></i> ES';
+      btn.setAttribute('aria-label', 'Traducir al español');
+    }, 3000);
+  }
+}
+
+/* ── INIT ─────────────────────────────────────────────── */
+async function init(forceRefresh = false) {
+  if (isLoading) return;
+  isLoading = true;
+  loadMoreBtn.style.display = 'none';
+  loadMoreBtn.disabled = true;
+
+  if (forceRefresh || allEs.length === 0) {
+    gridEs.innerHTML = `<div class="state-msg"><i class="fas fa-spinner fa-spin" aria-hidden="true"></i><span>Cargando noticias…</span></div>`;
+    gridEn.innerHTML = `<div class="state-msg"><i class="fas fa-spinner fa-spin" aria-hidden="true"></i><span>Loading news…</span></div>`;
+  }
+
+  try {
+    [allEs, allEn] = await Promise.all([
+      fetchAll('es', forceRefresh),
+      fetchAll('en', forceRefresh)
+    ]);
+    buildChips();
+    setMode(mode);
+  } catch (err) {
+    console.error(err);
+    const errMsgEs = `<div class="state-msg error"><i class="fas fa-exclamation-triangle"></i><span>Error al cargar. <button onclick="init(true)" style="color:inherit;background:none;border:none;cursor:pointer;text-decoration:underline">Reintentar</button></span></div>`;
+    const errMsgEn = `<div class="state-msg error"><i class="fas fa-exclamation-triangle"></i><span>Failed to load. <button onclick="init(true)" style="color:inherit;background:none;border:none;cursor:pointer;text-decoration:underline">Retry</button></span></div>`;
+    if (!allEs.length) gridEs.innerHTML = errMsgEs;
+    if (!allEn.length) gridEn.innerHTML = errMsgEn;
+  } finally {
+    isLoading = false;
+    loadMoreBtn.disabled = false;
+    refreshBtn.classList.remove('spinning');
+  }
+}
+
+/* ── EVENT LISTENERS ──────────────────────────────────── */
+
+/* Language pills */
+document.querySelectorAll('.lang-pill').forEach(btn => {
+  btn.addEventListener('click', () => setMode(btn.dataset.mode));
+});
+
+/* Load more */
+loadMoreBtn.addEventListener('click', () => {
+  page++;
+  if (mode !== 'en') renderPage(gridEs, filteredEs, 'es', page);
+  if (mode !== 'es') renderPage(gridEn, filteredEn, 'en', page);
+  refreshLoadMore();
+});
+
+/* Translate (event delegation) */
+gridEn.addEventListener('click', e => {
+  const btn = e.target.closest('.translate-btn');
+  if (btn) doTranslate(btn);
+});
+
+/* Search (debounced 280ms) */
+let searchTimer;
+searchInput.addEventListener('input', e => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    searchQuery = e.target.value.trim();
+    applyAndRender();
+  }, 280);
+});
+
+/* Refresh button */
+refreshBtn.addEventListener('click', () => {
+  if (isLoading) return;
+  refreshBtn.classList.add('spinning');
+  init(true);
+});
+
+/* Keyboard shortcut: Ctrl+F → focus search */
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'f' && document.activeElement !== searchInput) {
+    e.preventDefault();
+    searchInput.focus();
+    searchInput.select();
+  }
+});
+
+/* ── BOOT ─────────────────────────────────────────────── */
+init();
+</script>
+</body>
+</html>
